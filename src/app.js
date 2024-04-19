@@ -1,11 +1,11 @@
 document.addEventListener("alpine:init", () => {
   Alpine.data("products", () => ({
     items: [
-      { id: 1, name: "Arabica", img: "product.JPG", price: 10 },
-      { id: 2, name: "Robusta", img: "product.JPG", price: 10 },
-      { id: 3, name: "Liberica", img: "product.JPG", price: 10 },
-      { id: 4, name: "Excelsa", img: "product.JPG", price: 10 },
-      { id: 5, name: "Decaf", img: "product.JPG", price: 10 },
+      { id: 1, name: "Arabica", img: "product.jpg", price: 10 },
+      { id: 2, name: "Robusta", img: "product.jpg", price: 10 },
+      { id: 3, name: "Liberica", img: "product.jpg", price: 10 },
+      { id: 4, name: "Excelsa", img: "product.jpg", price: 10 },
+      { id: 5, name: "Decaf", img: "product.jpg", price: 10 },
     ],
   }));
 
