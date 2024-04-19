@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee twilight-memories</title>
+    <!-- fonts -->
+    <link rel="preconect" href="https://fonts.googleapis.com" />
+    <link rel="preconect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- my css -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- alpine js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- my app -->
+    <script src="src/app.js"></script>
+  </head>
+  <body>
+    <!-- navbar start -->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Twilight<span>Memories</span>.</a>
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#menu">Menu</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button"
+          ><i data-feather="shopping-cart"></i>
+          <span
+            class="quantity-badge"
+            x-show="$store.cart.quantity"
+            x-text="$store.cart.quantity"
+          ></span
+        ></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+      <!-- search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- search form end -->
+      <!-- shopping cart start -->
+      <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+            <img :src="`img/products/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="dollar(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">
+                  &minus;
+                </button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>
+                &equals;
+                <span x-text="dollar(item.total)"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">
+          Cart is Empty
+        </h4>
+        <h4 x-show="$store.cart.items.length">
+          Total : <span x-text="dollar($store.cart.total)"></span>
+        </h4>
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <h5>Customer Detail</h5>
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" />
+            </label>
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+            <button
+              class="checkout-button"
+              type="submit"
+              id="checkout-button"
+              value="checkout"
+            >
+              Check Out
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- shopping cart end -->
+    </nav>
+    <!-- navbar end -->
+
+    <!-- hero start -->
+    <section class="hero" id="home">
+      <main class="content">
+        <h1>Let's Enjoy a Cup of <span>Coffee</span></h1>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam,
+          reprehenderit!
+        </p>
+        <!-- <a href="#" class="cta">Buy Now</a> -->
+      </main>
+    </section>
+    <!-- hero end -->
+
+    <!-- about start -->
+    <section id="about" class="about">
+      <h2><span>About</span> Us</h2>
+      <div class="row">
+        <div class="about-img">
+          <img src="img/tentang-kami.jpg" alt="About Us" />
+        </div>
+        <div class="content">
+          <h3>Why choose our coffee . ??</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quod
+            delectus voluptate. Ab, voluptatum accusamus!
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
+            repudiandae. At asperiores sint nam quaerat sed libero officia fuga
+            qui.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- about end -->
+
+    <!-- menu start -->
+    <section id="menu" class="menu">
+      <h2><span>Our</span> Menu</h2>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis,
+        blanditiis! Impedit nobis sequi mollitia tenetur!
+      </p>
+      <div class="row">
+        <div class="menu-card">
+          <img
+            src="img/menu/americano.jpg"
+            alt="americano"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">- Americano -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img src="img/menu/arabica.jpg" alt="arabica" class="menu-card-img" />
+          <h3 class="menu-card-title">- Arabica -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/black-coffee.jpg"
+            alt="black-coffee"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">- Black Coffee -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/espresso.jpg"
+            alt="espresso"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">- Espresso -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/flat-white.jpg"
+            alt="flat-white"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">- Flat White -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img src="img/menu/latte.jpg" alt="latte" class="menu-card-img" />
+          <h3 class="menu-card-title">- Latte -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/moccacino.jpg"
+            alt="moccacino"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">- Moccacino -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img src="img/menu/robusta.jpg" alt="robusta" class="menu-card-img" />
+          <h3 class="menu-card-title">- Robusta -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+        <div class="menu-card">
+          <img src="img/menu/tubruk.jpg" alt="tubruk" class="menu-card-img" />
+          <h3 class="menu-card-title">- Tubruk -</h3>
+          <p class="menu-card-price">$1.50</p>
+        </div>
+      </div>
+    </section>
+    <!-- menu end -->
+
+    <!-- product start -->
+    <section class="products" id="products" x-data="products">
+      <h2><span>Our Superior</span> Products</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+        aperiam nesciunt accusamus reprehenderit provident eum expedita eaque
+        similique corporis eveniet.
+      </p>
+      <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg>
+              </a>
+              <a href="#" class="item-detail-button">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#eye" />
+                </svg>
+              </a>
+            </div>
+            <div class="product-image">
+              <img :src="`img/products/${item.img}`" :alt="item.name" />
+            </div>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+              </div>
+              <div class="product-price">
+                <span x-text="dollar(item.price)"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+    <!-- product end -->
+
+    <!-- contact start -->
+    <section id="contact" class="contact">
+      <h2><span>Contact</span> Us</h2>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis,
+        blanditiis! Impedit nobis sequi mollitia tenetur!
+      </p>
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.317132711009!2d102.95437257437636!3d-3.2712701410163487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e30e668f524d051%3A0xd6845449a4bd2994!2sBPU%20Bagas%20Raya!5e0!3m2!1sid!2sid!4v1712171583845!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="name" />
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="email" />
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="phone number" />
+          </div>
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+    </section>
+    <!-- contact end -->
+
+    <!-- footer start -->
+    <footer>
+      <div class="socials">
+        <a href="#"><i data-feather="instagram"></i></a>
+        <a href="#"><i data-feather="facebook"></i></a>
+      </div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="credit">
+        <p>Created by <a href="">Alfin Rizky Mahardi</a>. | &copy; 2024</p>
+      </div>
+    </footer>
+    <!-- footer end -->
+
+    <!-- modal box item detail start -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#"><i data-feather="x" class="close-icon"></i></a>
+        <div class="modal-content">
+          <img src="img/products/product.jpg" alt="product" />
+          <div class="product-content">
+            <h3>Product 1</h3>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis
+              ipsa magnam illo, eos adipisci quibusdam maiores aperiam ab
+              pariatur architecto harum consequuntur consequatur officia dolore.
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star"></i>
+              <i data-feather="star" class="star"></i>
+              <i data-feather="star" class="star"></i>
+              <i data-feather="star" class="star"></i>
+              <i data-feather="star" class="star"></i>
+            </div>
+            <div class="product-price">USD 10 <span>USD 12</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal box item detail end -->
+
+    <!-- icons -->
+    <script>
+      feather.replace();
+    </script>
+    <!-- my script -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
